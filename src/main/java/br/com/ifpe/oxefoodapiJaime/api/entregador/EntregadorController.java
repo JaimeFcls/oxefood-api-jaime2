@@ -1,7 +1,6 @@
-package br.com.ifpe.oxefoodapiJaime.api.cliente;
 
+package br.com.ifpe.oxefoodapiJaime.api.entregador;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,34 +12,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ifpe.oxefoodapiJaime.modelo.cliente.Cliente;
-import br.com.ifpe.oxefoodapiJaime.modelo.cliente.ClienteService;
+import br.com.ifpe.oxefoodapiJaime.modelo.entregador.Entregador;
+import br.com.ifpe.oxefoodapiJaime.modelo.entregador.EntregadorService;
 
 @RestController
-@RequestMapping("/api/cliente")
+@RequestMapping("/api/entregador")
 @CrossOrigin
-public class ClienteController {
+public class EntregadorController {
 
    @Autowired
-   private ClienteService clienteService;
+   private EntregadorService entregadorService;
 
    @PostMapping
-   public ResponseEntity<Cliente> save(@RequestBody ClienteRequest request) {
+   public ResponseEntity<Entregador> save(@RequestBody EntregadorRequest request) {
 
-       Cliente cliente = clienteService.save(request.build());
-       return new ResponseEntity<Cliente>(cliente, HttpStatus.CREATED);
+       Entregador entregador = entregadorService.save(request.build());
+       return new ResponseEntity<Entregador>(entregador, HttpStatus.CREATED);
        
    }
    @GetMapping
-    public List<Cliente> findAll() {
+    public List<Entregador> findAll() {
   
-        return clienteService.findAll();
+        return entregadorService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Cliente findById(@PathVariable Long id) {
+    public Entregador findById(@PathVariable Long id) {
 
-        return clienteService.findById(id);
+        return entregadorService.findById(id);
     }
 
 }
