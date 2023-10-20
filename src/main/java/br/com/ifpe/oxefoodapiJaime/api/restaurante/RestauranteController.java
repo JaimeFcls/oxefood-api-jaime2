@@ -1,4 +1,4 @@
-package br.com.ifpe.oxefoodapiJaime.api.produto;
+package br.com.ifpe.oxefoodapiJaime.api.restaurante;
 
 import java.util.List;
 
@@ -16,44 +16,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import br.com.ifpe.oxefoodapiJaime.modelo.produto.Produto;
-import br.com.ifpe.oxefoodapiJaime.modelo.produto.ProdutoService;
+import br.com.ifpe.oxefoodapiJaime.modelo.restaurante.Restaurante;
+import br.com.ifpe.oxefoodapiJaime.modelo.restaurante.RestauranteService;
 
 @RestController
-@RequestMapping("/api/produto")
+@RequestMapping("/api/restaurante")
 @CrossOrigin
-public class ProdutoController {
+public class RestauranteController {
 
    @Autowired
-   private ProdutoService produtoService;
+   private RestauranteService restauranteService;
 
    @PostMapping
-   public ResponseEntity<Produto> save(@RequestBody ProdutoRequest request) {
+   public ResponseEntity<Restaurante> save(@RequestBody RestauranteRequest request) {
 
-       Produto produto = produtoService.save(request.build());
-       return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
+       Restaurante restaurante = restauranteService.save(request.build());
+       return new ResponseEntity<Restaurante>(restaurante, HttpStatus.CREATED);
    }
    @GetMapping
-    public List<Produto> findAll() {
+    public List<Restaurante> findAll() {
   
-        return produtoService.findAll();
+        return restauranteService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Produto findById(@PathVariable Long id) {
+    public Restaurante findById(@PathVariable Long id) {
 
-        return produtoService.findById(id);
+        return restauranteService.findById(id);
     }
     @PutMapping("/{id}")
-   public ResponseEntity<Produto> update(@PathVariable("id") Long id, @RequestBody ProdutoRequest request) {
+   public ResponseEntity<Restaurante> update(@PathVariable("id") Long id, @RequestBody RestauranteRequest request) {
 
-       produtoService.update(id, request.build());
+       restauranteService.update(id, request.build());
        return ResponseEntity.ok().build();
    }
    @DeleteMapping("/{id}")
    public ResponseEntity<Void> delete(@PathVariable Long id) {
 
-       produtoService.delete(id);
+       restauranteService.delete(id);
        return ResponseEntity.ok().build();
    }
 
