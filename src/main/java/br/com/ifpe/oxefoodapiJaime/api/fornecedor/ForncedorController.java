@@ -1,4 +1,4 @@
-package br.com.ifpe.oxefoodapiJaime.api.restaurante;
+package br.com.ifpe.oxefoodapiJaime.api.fornecedor;
 
 import java.util.List;
 
@@ -15,45 +15,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import br.com.ifpe.oxefoodapiJaime.modelo.restaurante.Restaurante;
-import br.com.ifpe.oxefoodapiJaime.modelo.restaurante.RestauranteService;
+import br.com.ifpe.oxefoodapiJaime.modelo.fornecedor.ForncedorService;
+import br.com.ifpe.oxefoodapiJaime.modelo.fornecedor.Fornecedor;
 
 @RestController
-@RequestMapping("/api/restaurante")
+@RequestMapping("/api/fornecedor")
 @CrossOrigin
-public class RestauranteController {
+public class ForncedorController {
 
    @Autowired
-   private RestauranteService restauranteService;
+   private ForncedorService fornecedorService;
 
    @PostMapping
-   public ResponseEntity<Restaurante> save(@RequestBody RestauranteRequest request) {
+   public ResponseEntity<Fornecedor> save(@RequestBody ForncedorRequest request) {
 
-       Restaurante restaurante = restauranteService.save(request.build());
-       return new ResponseEntity<Restaurante>(restaurante, HttpStatus.CREATED);
+       Fornecedor fornecedor = fornecedorService.save(request.build());
+       return new ResponseEntity<Fornecedor>(fornecedor, HttpStatus.CREATED);
    }
    @GetMapping
-    public List<Restaurante> findAll() {
+    public List<Fornecedor> findAll() {
   
-        return restauranteService.findAll();
+        return fornecedorService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Restaurante findById(@PathVariable Long id) {
+    public Fornecedor findById(@PathVariable Long id) {
 
-        return restauranteService.findById(id);
+        return fornecedorService.findById(id);
     }
     @PutMapping("/{id}")
-   public ResponseEntity<Restaurante> update(@PathVariable("id") Long id, @RequestBody RestauranteRequest request) {
+   public ResponseEntity<Fornecedor> update(@PathVariable("id") Long id, @RequestBody ForncedorRequest request) {
 
-       restauranteService.update(id, request.build());
+       fornecedorService.update(id, request.build());
        return ResponseEntity.ok().build();
    }
    @DeleteMapping("/{id}")
    public ResponseEntity<Void> delete(@PathVariable Long id) {
 
-       restauranteService.delete(id);
+       fornecedorService.delete(id);
        return ResponseEntity.ok().build();
    }
 

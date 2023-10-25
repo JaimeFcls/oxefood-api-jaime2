@@ -1,4 +1,4 @@
-package br.com.ifpe.oxefoodapiJaime.modelo.restaurante;
+package br.com.ifpe.oxefoodapiJaime.modelo.fornecedor;
 
 import java.time.LocalDate;
 
@@ -16,22 +16,31 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Restaurante")
+@Table(name = "Fornecedor")
 @Where(clause = "habilitado = true")
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Restaurante extends EntidadeAuditavel  {
+public class Fornecedor extends EntidadeAuditavel  {
 
    @Column
    private String nome;
 
    @Column
-   private String cnpj;
+   private String endereco;
 
    @Column
-   private Double valorPedidoMin;
+   private LocalDate dataFundacao;
+
+   @Column
+   private String paginaWeb;
+
+   @Column
+   private Double valorMercado;
+
+   @Column
+   private String contatoVendedor;
 
 }
