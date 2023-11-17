@@ -2,6 +2,7 @@ package br.com.ifpe.oxefoodapiJaime.modelo.categoriaproduto;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -10,44 +11,48 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CategoriaProdutoService {
+
     @Autowired
     private CategoriaProdutoRepository repository;
 
     @Transactional
-    public CategoriaProduto save(CategoriaProduto categoria) {
-
-        categoria.setHabilitado(Boolean.TRUE);
-        categoria.setVersao(1L);
-        categoria.setDataCriacao(LocalDate.now());
-        return repository.save(categoria);
+    public CategoriaProduto save(CategoriaProduto categoriaProduto) {
+        categoriaProduto.setHabilitado(Boolean.TRUE);
+        categoriaProduto.setVersao(1L);
+        categoriaProduto.setDataCriacao(LocalDate.now());
+        return repository.save(categoriaProduto);
     }
 
-    public List<CategoriaProduto> findAll() {
-
+    public List<CategoriaProduto> listarTodos() {
         return repository.findAll();
     }
 
-    public CategoriaProduto findById(Long id) {
-
-        return repository.findById(id).get();
+    public CategoriaProduto obterPorID(Long id) {
+        Optional<CategoriaProduto> optionalCategoriaProduto = repository.findById(id);
+        return optionalCategoriaProduto.orElse(null);
     }
 
-    public void update(Long id, CategoriaProduto categoriaAlterado) {
+    @Transactional
+    public void update(Long id, CategoriaProduto categoriaProdutoAlterado) {
+        Optional<CategoriaProduto> optionalCategoriaProduto = repository.findById(id);
 
-        CategoriaProduto categoria = repository.findById(id).get();
-        categoria.setDescricao(categoriaAlterado.getDescricao());
-
-        categoria.setVersao(categoria.getVersao() + 1);
-        repository.save(categoria);
+        if (optionalCategoriaProduto.isPresent()) {
+            CategoriaProduto categoriaProduto = optionalCategoriaProduto.get();
+            categoriaProduto.setDescricao(categoriaProdutoAlterado.getDescricao());
+            categoriaProduto.setVersao(categoriaProduto.getVersao() + 1);
+            repository.save(categoriaProduto);
+        }
     }
 
     @Transactional
     public void delete(Long id) {
+        Optional<CategoriaProduto> optionalCategoriaProduto = repository.findById(id);
 
-        CategoriaProduto categoria = repository.findById(id).get();
-        categoria.setHabilitado(Boolean.FALSE);
-        categoria.setVersao(categoria.getVersao() + 1);
-
-        repository.save(categoria);
+        if (optionalCategoriaProduto.isPresent()) {
+            CategoriaProduto categoriaProduto = optionalCategoriaProduto.get();
+            categoriaProduto.setHabilitado(Boolean.FALSE);
+            categoriaProduto.setVersao(categoriaProduto.getVersao() + 1);
+            repository.save(categoriaProduto);
+        }
     }
 }

@@ -2,6 +2,9 @@ package br.com.ifpe.oxefoodapiJaime.api.cliente;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.ifpe.oxefoodapiJaime.modelo.cliente.Cliente;
@@ -16,25 +19,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClienteRequest {
 
-   private String nome;
+    private String nome;
 
-   @JsonFormat(pattern = "dd/MM/yyyy")
-   private LocalDate dataNascimento;
+    @NotBlank(message = "O Email é de preenchimento obrigatório")
+    @Email
+    private String email;
 
-   private String cpf;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataNascimento;
 
-   private String foneCelular;
+    private String cpf;
 
-   private String foneFixo;
+    private String foneCelular;
 
-   public Cliente build() {
+    private String foneFixo;
 
-       return Cliente.builder()
-               .nome(nome)
-               .dataNascimento(dataNascimento)
-               .cpf(cpf)
-               .foneCelular(foneCelular)
-               .foneFixo(foneFixo)
-               .build();
-   }
+    public Cliente build() {
+
+        return Cliente.builder()
+            .email(email)
+            .nome(nome)
+            .dataNascimento(dataNascimento)
+            .cpf(cpf)
+            .foneCelular(foneCelular)
+            .foneFixo(foneFixo)
+            .build();
+    }
+
 }
