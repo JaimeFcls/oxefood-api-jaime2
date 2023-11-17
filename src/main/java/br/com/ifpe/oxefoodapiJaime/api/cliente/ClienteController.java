@@ -2,7 +2,6 @@ package br.com.ifpe.oxefoodapiJaime.api.cliente;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ifpe.oxefoodapiJaime.modelo.cliente.Cliente;
@@ -97,6 +97,13 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/filtrar")
+    public List<Cliente> filtrar(
+            @RequestParam(value = "cpf", required = false) String cpf,
+			@RequestParam(value = "nome", required = false) String nome
+			) {
 
+        return clienteService.filtrar(cpf, nome);
+    }
 
 }

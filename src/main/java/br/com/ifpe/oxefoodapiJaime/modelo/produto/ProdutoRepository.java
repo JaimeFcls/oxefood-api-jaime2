@@ -9,7 +9,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     //Exemplo de uma busca exata
     @Query(value = "SELECT p FROM Produto p WHERE p.codigo = :codigo ")
     List<Produto> consultarPorCodigo(String codigo); 
-
+    //List<Produto> findByCodigoAndNome(String codigo, String Nome);
     //Exemplo de uma busca aproximada com ordenação:
     
     // @Query(value = "SELECT p FROM Produto p WHERE p.titulo like %:titulo% ORDER BY p.titulo")

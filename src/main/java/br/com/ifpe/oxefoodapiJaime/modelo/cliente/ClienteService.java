@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ifpe.oxefoodapiJaime.modelo.mensagens.EmailService;
+//import br.com.ifpe.oxefoodapiJaime.modelo.mensagens.EmailService;
 
 
 
@@ -22,8 +22,8 @@ public class ClienteService {
     @Autowired
     private EnderecoClienteRepository enderecoClienteRepository;
 
-    @Autowired
-    private EmailService emailService;
+    //@Autowired
+    //private EmailService emailService;
 
     @Transactional
     public Cliente save(Cliente cliente) {
@@ -49,6 +49,28 @@ public class ClienteService {
         return repository.findById(id).get();
     }
 
+    public List<Cliente> filtrar(String cpf, String nome){
+        List<Cliente> listaClientes = repository.findAll();
+        if ((cpf != null && !"".equals(cpf)) &&
+            (nome == null || "".equals(nome)))
+             {
+                listaClientes = repository.findByCpf(cpf);
+        
+        } 
+        else if(
+            (nome != null && !"".equals(nome)) &&
+            (cpf == null || "".equals(cpf)))
+             {
+                listaClientes = repository.findByNome(nome);
+             }
+        else if(
+            (nome == null && !"".equals(nome)) &&
+            (cpf == null || "".equals(cpf)))
+             {
+                listaClientes = repository.findByCpfAndNome(cpf, nome);
+             }
+        return listaClientes;
+    }
     @Transactional
     public void update(Long id, Cliente clienteAlterado) {
 
